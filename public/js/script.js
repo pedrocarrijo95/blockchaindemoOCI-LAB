@@ -737,8 +737,8 @@ function getFamiliasQR(listaEtiquetasFamiliaArr, i) {
                 var localitem6 = document.createElement('li');
 
                 imgitem.src = "http://www.r13a.com/familia-s-" + Familia + ".jpg";
-                imgitem.style.width = "100px";
-                imgitem.style.height = "100px";
+                imgitem.style.width = "50%";
+                imgitem.style.height = "automatic";
 
                 localitem1.innerHTML = "Familia: " + Familia;
                 localitem2.innerHTML = "Etiqueta Familia: " + EtiquetaFamilia;
