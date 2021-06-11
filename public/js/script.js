@@ -173,25 +173,6 @@ window.cadastrarProcessado = async function cadastrarProcessado() {
 
                 inserirHistoricoBlockchainTable(edtCodigoLoteProcessado);
 
-                await esperar(2000);
-                
-                var rawOIC = JSON.stringify({"CodigoLoteProcessado":edtCodigoLoteProcessado,"DataRegistro":datetimenow,"Quantidade":edtQuantidade,"TipoProduto":edtTipoProduto});
-
-                var requestOptionsOIC = {
-                method: 'POST',
-                headers: myHeadersOIC,
-                body: rawOIC,
-                redirect: 'follow'
-                };
-
-                fetch("https://oic-idvkxij5qkne-gr.integration.ocp.oraclecloud.com:443/ic/api/integration/v1/flows/rest/INTEGRACAOPOCNAT_2/1.0/", requestOptionsOIC)
-                .then(response => response.text())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
-
-                
-
-
 
                 document.getElementById('btnproximo3').style.pointerEvents = 'all';
                 textStatus.innerHTML = "Enviado - Liberado próximo passo !";
@@ -205,6 +186,23 @@ window.cadastrarProcessado = async function cadastrarProcessado() {
 
         })
         .catch(error => console.log('error', error));
+
+        await esperar(2000);
+                
+        var rawOIC = JSON.stringify({"CodigoLoteProcessado":edtCodigoLoteProcessado,"DataRegistro":datetimenow,"Quantidade":edtQuantidade,"TipoProduto":edtTipoProduto});
+
+        var requestOptionsOIC = {
+        method: 'POST',
+        headers: myHeadersOIC,
+        body: rawOIC,
+        redirect: 'follow'
+        };
+
+        fetch("https://oic-idvkxij5qkne-gr.integration.ocp.oraclecloud.com:443/ic/api/integration/v1/flows/rest/INTEGRACAOPOCNAT_2/1.0/", requestOptionsOIC)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+
 }
 
 window.cadastrarNatura = function cadastrarNatura() {
