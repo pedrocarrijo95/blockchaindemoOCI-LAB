@@ -166,10 +166,7 @@ window.cadastrarProcessado = async function cadastrarProcessado() {
         .then(result => {
             var resp = JSON.parse(result.toString());
             if (resp.returnCode == "Success") {
-                //Envia o item processado para a Natura 
-                var myHeadersOIC = new Headers();
-                myHeadersOIC.append("Authorization", "Basic bWF1bWlldHRvQGdtYWlsLmNvbTpPcmFjbGVAQDIwMjI=");
-                myHeadersOIC.append("Content-Type", "application/json");
+               
 
                 inserirHistoricoBlockchainTable(edtCodigoLoteProcessado);
 
@@ -187,6 +184,10 @@ window.cadastrarProcessado = async function cadastrarProcessado() {
         })
         .catch(error => console.log('error', error));
 
+        //Envia o item processado para a Natura 
+        var myHeadersOIC = new Headers();
+        myHeadersOIC.append("Authorization", "Basic bWF1bWlldHRvQGdtYWlsLmNvbTpPcmFjbGVAQDIwMjI=");
+        myHeadersOIC.append("Content-Type", "application/json");
         await esperar(2000);
                 
         var rawOIC = JSON.stringify({"CodigoLoteProcessado":edtCodigoLoteProcessado,"DataRegistro":datetimenow,"Quantidade":edtQuantidade,"TipoProduto":edtTipoProduto});
