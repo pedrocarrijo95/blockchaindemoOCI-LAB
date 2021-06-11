@@ -146,63 +146,66 @@ window.cadastrarProcessado = async function cadastrarProcessado() {
     console.log(today);
     var datetimenow = today.toLocaleDateString() + " " + today.toLocaleTimeString();
 
-    var raw = JSON.stringify({
-        "channel": channel,
-        "chaincode": chaincodename,
-        "chaincodeVer": chaincodeVer,
-        "method": "addProcessado",
-        "args": [edtCodigoLoteProcessado, datetimenow, edtQuantidade, edtTipoProduto]
-    });
+        var raw = JSON.stringify({
+            "channel": channel,
+            "chaincode": chaincodename,
+            "chaincodeVer": chaincodeVer,
+            "method": "addProcessado",
+            "args": [edtCodigoLoteProcessado, datetimenow, edtQuantidade, edtTipoProduto]
+        });
 
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-    };
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
 
-    fetch(url + "/bcsgw/rest/v1/transaction/invocation", requestOptions)
-        .then(response => response.text())
-        .then(result => {
-            var resp = JSON.parse(result.toString());
+
+        async function myFetchAsync() {
+            let response = await fetch(url + "/bcsgw/rest/v1/transaction/invocation", requestOptions);
+            //var resp = JSON.parse(response.toString());
+            var resp = await response.json();
+            //console.log(JSON.stringify(resp));
             if (resp.returnCode == "Success") {
-               
-
-                inserirHistoricoBlockchainTable(edtCodigoLoteProcessado);
-
+                await inserirHistoricoBlockchainTable(edtCodigoLoteProcessado);
+                //await esperar(1000);
+                var myHeadersOIC = new Headers();
+                myHeadersOIC.append("Authorization", "Basic bWF1bWlldHRvQGdtYWlsLmNvbTpPcmFjbGVAQDIwMjI=");
+                myHeadersOIC.append("Content-Type", "application/json");
+                
+                        
+                var rawOIC = JSON.stringify({"CodigoLoteProcessado":edtCodigoLoteProcessado,"DataRegistro":datetimenow,"Quantidade":edtQuantidade,"TipoProduto":edtTipoProduto});
+        
+                var requestOptionsOIC = {
+                method: 'POST',
+                headers: myHeadersOIC,
+                body: rawOIC,
+                redirect: 'follow'
+                };
+        
+                fetch("https://oic-idvkxij5qkne-gr.integration.ocp.oraclecloud.com:443/ic/api/integration/v1/flows/rest/INTEGRACAOPOCNAT_2/1.0/", requestOptionsOIC)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
 
                 document.getElementById('btnproximo3').style.pointerEvents = 'all';
                 textStatus.innerHTML = "Enviado - Liberado próximo passo !";
                 textStatus.style.color = "#9ACD32"
-            } else {
+            }
+            else {
                 textStatus.innerHTML = resp.info.peerErrors[0].errMsg;
                 textStatus.style.color = "#FF0000"
                 console.log(result)
             }
+            
+          }
 
-
-        })
-        .catch(error => console.log('error', error));
-
-        //Envia o item processado para a Natura 
-        var myHeadersOIC = new Headers();
-        myHeadersOIC.append("Authorization", "Basic bWF1bWlldHRvQGdtYWlsLmNvbTpPcmFjbGVAQDIwMjI=");
-        myHeadersOIC.append("Content-Type", "application/json");
-        await esperar(2000);
-                
-        var rawOIC = JSON.stringify({"CodigoLoteProcessado":edtCodigoLoteProcessado,"DataRegistro":datetimenow,"Quantidade":edtQuantidade,"TipoProduto":edtTipoProduto});
-
-        var requestOptionsOIC = {
-        method: 'POST',
-        headers: myHeadersOIC,
-        body: rawOIC,
-        redirect: 'follow'
-        };
-
-        fetch("https://oic-idvkxij5qkne-gr.integration.ocp.oraclecloud.com:443/ic/api/integration/v1/flows/rest/INTEGRACAOPOCNAT_2/1.0/", requestOptionsOIC)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+          myFetchAsync()
+            .catch(e => {
+            console.log('ocorreu algum problema: ' + e.message);
+            });
+       
 
 }
 
@@ -390,6 +393,7 @@ window.inserirHistoricoBlockchainTable = async function inserirHistoricoBlockcha
                                 getFamilias(listaEtiquetasFamiliaArr, i);
 
                             }
+                            console.log("blockchain table sucesso");
                         } else {
                             getFamilias(listaEtiquetasFamiliaArr, 0);
                         }
@@ -406,7 +410,7 @@ window.inserirHistoricoBlockchainTable = async function inserirHistoricoBlockcha
     // textStatus.innerHTML = "Sucesso.";
     // textStatus.style.color = "#9ACD32"
 
-
+  return;
 
 }
 
