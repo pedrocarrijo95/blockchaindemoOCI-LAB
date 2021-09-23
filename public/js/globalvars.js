@@ -1,11 +1,8 @@
+/** MUDAR AS INFOS AQUI PARA A INFO DO SEU AMBIENTE */
 var variables = {
     url: "http://129.213.202.34/restproxy",
-    channel: "testechannel14",
-    chaincodename: "oabcs-produtotrack",
-    chaincodeVer: "v39",
-    blockchaintable_lotesnatura: "http://132.145.201.29:8888/ords/bct/lotesnatura/",
-    blockchaintable_lotesprocessadora: "http://132.145.201.29:8888/ords/bct/lotesprocessadora/",
-    blockchaintable_lotescooperativas: "http://132.145.201.29:8888/ords/bct/lotescooperativas/",
-    blockchaintable_sacas: "http://132.145.201.29:8888/ords/bct/sacas/"
+    channel: "testesmart",
+    chaincodename: "oabcs-testesmart",
+    chaincodeVer: "v2"
 };
 export { variables };

@@ -7,11 +7,6 @@ var channel = variables.channel;
 var chaincodename = variables.chaincodename;
 var chaincodeVer = variables.chaincodeVer;
 
-//endpoints blockchain table
-var endpoint_lotesnatura = variables.blockchaintable_lotesnatura;
-var endpoint_lotesprocessadora = variables.blockchaintable_lotesprocessadora;
-var endpoint_lotescooperativas = variables.blockchaintable_lotescooperativas;
-var endpoint_sacas = variables.blockchaintable_sacas;
 
 
 window.cadastrarSacas = function cadastrarSacas() {
@@ -20,7 +15,7 @@ window.cadastrarSacas = function cadastrarSacas() {
     textStatus.style.color = "#FFFF00";
     console.log("cadastrar");
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Basic cGVkcm8uYmxvY2tjaGFpbjpCbG9jayYxMjM0NTY3ODk=");
+    myHeaders.append("Authorization", "Basic cGVkcm8uYmxvY2tjaGFpbjpCbG9jayYxMjQ0Mjk=");
     myHeaders.append("Content-Type", "application/json");
 
 
@@ -74,7 +69,7 @@ window.cadastrarProcessar = function cadastrarProcessar() {
     textStatus.style.color = "#FFFF00";
     console.log("cadastrar");
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Basic cGVkcm8uYmxvY2tjaGFpbjpCbG9jayYxMjM0NTY3ODk=");
+    myHeaders.append("Authorization", "Basic cGVkcm8uYmxvY2tjaGFpbjpCbG9jayYxMjQ0Mjk=");
     myHeaders.append("Content-Type", "application/json");
 
 
@@ -122,10 +117,6 @@ window.cadastrarProcessar = function cadastrarProcessar() {
         .catch(error => console.log('error', error));
 }
 
-
-  
-
-
 window.cadastrarProcessado = async function cadastrarProcessado() {
 
     var textStatus = document.getElementById("textStatus3");
@@ -133,7 +124,7 @@ window.cadastrarProcessado = async function cadastrarProcessado() {
     textStatus.style.color = "#FFFF00";
     console.log("cadastrar");
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Basic cGVkcm8uYmxvY2tjaGFpbjpCbG9jayYxMjM0NTY3ODk=");
+    myHeaders.append("Authorization", "Basic cGVkcm8uYmxvY2tjaGFpbjpCbG9jayYxMjQ0Mjk=");
     myHeaders.append("Content-Type", "application/json");
 
 
@@ -168,8 +159,6 @@ window.cadastrarProcessado = async function cadastrarProcessado() {
             var resp = await response.json();
             //console.log(JSON.stringify(resp));
             if (resp.returnCode == "Success") {
-                await inserirHistoricoBlockchainTable(edtCodigoLoteProcessado);
-                //await esperar(1000);
                 var myHeadersOIC = new Headers();
                 myHeadersOIC.append("Authorization", "Basic bWF1bWlldHRvQGdtYWlsLmNvbTpPcmFjbGVAQDIwMjI=");
                 myHeadersOIC.append("Content-Type", "application/json");
@@ -209,19 +198,19 @@ window.cadastrarProcessado = async function cadastrarProcessado() {
 
 }
 
-window.cadastrarNatura = function cadastrarNatura() {
+window.cadastrarIndustriaX = function cadastrarIndustriaX() {
     var textStatus = document.getElementById("textStatus4");
     textStatus.innerHTML = "Enviando..";
     textStatus.style.color = "#FFFF00";
     console.log("cadastrar");
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Basic cGVkcm8uYmxvY2tjaGFpbjpCbG9jayYxMjM0NTY3ODk=");
+    myHeaders.append("Authorization", "Basic cGVkcm8uYmxvY2tjaGFpbjpCbG9jayYxMjQ0Mjk=");
     myHeaders.append("Content-Type", "application/json");
 
 
-    var edtCodigoLoteNatura = (document.getElementById('edtCodigoLoteNatura').value).toString();
-    var edtQuantidade = (document.getElementById('edtQuantidadeNatura').value).toString();
-    var edtTipoProduto = (document.getElementById('edtTipoProdutoNatura').value).toString();
+    var edtCodigoLoteIndustriaX = (document.getElementById('edtCodigoLoteIndustriaX').value).toString();
+    var edtQuantidade = (document.getElementById('edtQuantidadeIndustriaX').value).toString();
+    var edtTipoProduto = (document.getElementById('edtTipoProdutoIndustriaX').value).toString();
     var edtCodigoLoteProcessamento = (document.getElementById('edtCodigoLoteProcessamento').value).toString()
 
     const timeElapsed = Date.now();
@@ -232,8 +221,8 @@ window.cadastrarNatura = function cadastrarNatura() {
         "channel": channel,
         "chaincode": chaincodename,
         "chaincodeVer": chaincodeVer,
-        "method": "addNatura",
-        "args": [edtCodigoLoteNatura, datetimenow, edtQuantidade, edtTipoProduto, edtCodigoLoteProcessamento]
+        "method": "addIndustriaX",
+        "args": [edtCodigoLoteIndustriaX, datetimenow, edtQuantidade, edtTipoProduto, edtCodigoLoteProcessamento]
     });
 
     var requestOptions = {
@@ -248,7 +237,6 @@ window.cadastrarNatura = function cadastrarNatura() {
         .then(result => {
             var resp = JSON.parse(result.toString());
             if (resp.returnCode == "Success") {
-                inserirHistoricoBlockchainTableComNatura(edtCodigoLoteNatura);
                 document.getElementById('btnproximo4').style.pointerEvents = 'all';
                 textStatus.innerHTML = "Enviado - Liberado próximo passo !";
                 textStatus.style.color = "#9ACD32"
@@ -264,7 +252,7 @@ window.cadastrarNatura = function cadastrarNatura() {
 }
 
 var myHeaders = new Headers();
-myHeaders.append("Authorization", "Basic cGVkcm8uYmxvY2tjaGFpbjpCbG9jayYxMjM0NTY3ODk=");
+myHeaders.append("Authorization", "Basic cGVkcm8uYmxvY2tjaGFpbjpCbG9jayYxMjQ0Mjk=");
 myHeaders.append("Content-Type", "application/json");
 
 
@@ -272,427 +260,10 @@ var myHeadersBlockchainTable = new Headers();
 myHeadersBlockchainTable.append("Content-Type", "application/json");
 
 
-window.inserirHistoricoBlockchainTable = async function inserirHistoricoBlockchainTable(codigoLoteProcessado) {
-
-    //BUSCAR PELO CODIGO LOTE PROCESSADO - LotesNatura
-    var raw = JSON.stringify({
-        "channel": channel,
-        "chaincode": chaincodename,
-        "chaincodeVer": chaincodeVer,
-        "method": "queryEvent",
-        "args": ["{\"selector\":{\"CodigoLoteProcessado\":\"" + codigoLoteProcessado + "\"}}"]
-    });
-
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-    };
-
-    fetch(url + "/bcsgw/rest/v1/transaction/query", requestOptions)
-        .then(response => response.text())
-        .then(result => {
-            var rs = JSON.parse(result.toString());
-            var objrs = rs.result.payload;
-            console.log("objrs: " + objrs);
-            var j = 0;
-            //for (var i = (objrs.length-1); i >= 0 ; i--) {
-            var CodigoLoteProcessado = objrs[j].Record.CodigoLoteProcessado;
-            var DataRegistro = objrs[j].Record.DataRegistro;
-            var Quantidade = objrs[j].Record.Quantidade;
-            var TipoProduto = objrs[j].Record.TipoProduto;
-
-            //INSERT NA BLOCKCHAIN TABLE - LotesProcessadora
-            var rawblocktable = JSON.stringify({
-                "codigoloteprocessado": CodigoLoteProcessado,
-                "dataregistro": DataRegistro,
-                "quantidade": parseInt(Quantidade, 10),
-                "tipoproduto": TipoProduto
-            });
-
-            var requestOptions_blocktable = {
-                method: 'POST',
-                headers: myHeaders,
-                body: rawblocktable,
-                redirect: 'follow'
-            };
-
-            fetch(endpoint_lotesprocessadora, requestOptions_blocktable)
-                .then(response => response.text())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
-
-
-
-            //BUSCAR PELO CODIGO LOTE DAS COOPERATIVAS
-            var raw = JSON.stringify({
-                "channel": channel,
-                "chaincode": chaincodename,
-                "chaincodeVer": chaincodeVer,
-                "method": "queryEvent",
-                "args": ["{\"selector\":{\"CodigoLote\":\"" + CodigoLoteProcessado + "\"}}"]
-            });
-
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-
-            fetch(url + "/bcsgw/rest/v1/transaction/query", requestOptions)
-                .then(response => response.text())
-                .then(result => {
-                    var rs = JSON.parse(result.toString());
-                    var objrs = rs.result.payload;
-                    console.log("objrs: " + JSON.stringify(objrs));
-
-                    for (var i = (objrs.length - 1); i == 0; i--) {
-                        var CodigoLote = objrs[i].Record.CodigoLote;
-                        var DataRegistro = objrs[i].Record.DataRegistro;
-                        var EtiquetaCooperativa = objrs[i].Record.EtiquetaCooperativa;
-                        var QuantidadeSacas = objrs[i].Record.QuantidadeSacas;
-                        var TipoProduto = objrs[i].Record.TipoProduto;
-                        var ListaEtiquetasFamilia = objrs[i].Record.ListaEtiquetasFamilia;
-
-                        //INSERT NA BLOCKCHAIN TABLE - LotesCooperativas
-                        var rawblocktable = JSON.stringify({
-                            "codigolote": CodigoLote,
-                            "dataregistro": DataRegistro,
-                            "etiquetacooperativa": EtiquetaCooperativa,
-                            "quantidadesacas": parseInt(QuantidadeSacas, 10),
-                            "tipoproduto": TipoProduto,
-                            "listaetiquetasfamilia": ListaEtiquetasFamilia
-                        });
-
-                        var requestOptions_blocktable = {
-                            method: 'POST',
-                            headers: myHeaders,
-                            body: rawblocktable,
-                            redirect: 'follow'
-                        };
-
-                        fetch(endpoint_lotescooperativas, requestOptions_blocktable)
-                            .then(response => response.text())
-                            .then(result => console.log(result))
-                            .catch(error => console.log('error', error));
-
-
-
-                        //console.log("2");
-                        var listaEtiquetasFamiliaArr = [];
-                        if (ListaEtiquetasFamilia.indexOf(',') != -1) {
-                            listaEtiquetasFamiliaArr = ListaEtiquetasFamilia.split(',');
-                        } else {
-                            listaEtiquetasFamiliaArr[0] = ListaEtiquetasFamilia;
-                        }
-                        if (listaEtiquetasFamiliaArr.length > 1) {
-                            for (var i = 0; i < listaEtiquetasFamiliaArr.length; i++) {
-                                //PASSAR ETIQUETA POR ETIQUETA DA LISTA - PEGANDO OS DADOS
-                                getFamilias(listaEtiquetasFamiliaArr, i);
-
-                            }
-                            console.log("blockchain table sucesso");
-                        } else {
-                            getFamilias(listaEtiquetasFamiliaArr, 0);
-                        }
-
-                    }
-
-
-                }).catch(error => console.log('error', error));
-
-            //}
-
-        }).catch(error => console.log('error', error));
-
-    // textStatus.innerHTML = "Sucesso.";
-    // textStatus.style.color = "#9ACD32"
-
-  return;
-
-}
-
-window.inserirHistoricoBlockchainTableComNatura = async function inserirHistoricoBlockchainTableComNatura(codigoLoteNatura) {
-
-    //BUSCAR PELO CODIGO LOTE NATURA - LotesNatura
-    var raw = JSON.stringify({
-        "channel": channel,
-        "chaincode": chaincodename,
-        "chaincodeVer": chaincodeVer,
-        "method": "queryEvent",
-        "args": ["{\"selector\":{\"CodigoLoteNatura\":\"" + codigoLoteNatura + "\"}}"]
-    });
-    
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-    };
-
-    fetch(url + "/bcsgw/rest/v1/transaction/query", requestOptions)
-    .then(response => response.text())  
-    .then(result => {
-        
-        var rs = JSON.parse(result.toString());
-        var objrs = rs.result.payload;
-        console.log("objrs: " + JSON.stringify(objrs));
-        var j = 0;
-        var CodigoLoteNatura = objrs[j].Record.CodigoLoteNatura;
-        var DataRegistro = objrs[j].Record.DataRegistro;
-        var Quantidade = objrs[j].Record.Quantidade;
-        var TipoProduto = objrs[j].Record.TipoProduto;
-        var CodigoLoteProcessamento = objrs[j].Record.CodigoLoteProcessamento;
-        console.log(CodigoLoteProcessamento);
-            
-
-
-    //BUSCAR PELO CODIGO LOTE PROCESSADO - LotesProcessadora
-    var raw = JSON.stringify({
-        "channel": channel,
-        "chaincode": chaincodename,
-        "chaincodeVer": chaincodeVer,
-        "method": "queryEvent",
-        "args": ["{\"selector\":{\"CodigoLoteProcessado\":\"" + CodigoLoteProcessamento + "\"}}"]
-    });
-
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-    };
-
-    fetch(url + "/bcsgw/rest/v1/transaction/query", requestOptions)
-        .then(response => response.text())
-        .then(result => {
-            var rs = JSON.parse(result.toString());
-            var objrs = rs.result.payload;
-            console.log("objrs: " + objrs);
-            var j = 0;
-            //for (var i = (objrs.length-1); i >= 0 ; i--) {
-            var CodigoLoteProcessado = objrs[j].Record.CodigoLoteProcessado;
-            var DataRegistro = objrs[j].Record.DataRegistro;
-            var Quantidade = objrs[j].Record.Quantidade;
-            var TipoProduto = objrs[j].Record.TipoProduto;
-
-            //INSERT NA BLOCKCHAIN TABLE - LotesProcessadora
-            var rawblocktable = JSON.stringify({
-                "codigoloteprocessado": CodigoLoteProcessado,
-                "dataregistro": DataRegistro,
-                "quantidade": parseInt(Quantidade, 10),
-                "tipoproduto": TipoProduto
-            });
-
-            var requestOptions_blocktable = {
-                method: 'POST',
-                headers: myHeaders,
-                body: rawblocktable,
-                redirect: 'follow'
-            };
-
-            fetch(endpoint_lotesprocessadora, requestOptions_blocktable)
-                .then(response => response.text())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
-
-
-
-            //BUSCAR PELO CODIGO LOTE DAS COOPERATIVAS
-            var raw = JSON.stringify({
-                "channel": channel,
-                "chaincode": chaincodename,
-                "chaincodeVer": chaincodeVer,
-                "method": "queryEvent",
-                "args": ["{\"selector\":{\"CodigoLote\":\"" + CodigoLoteProcessado + "\"}}"]
-            });
-
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-
-            fetch(url + "/bcsgw/rest/v1/transaction/query", requestOptions)
-                .then(response => response.text())
-                .then(result => {
-                    var rs = JSON.parse(result.toString());
-                    var objrs = rs.result.payload;
-                    console.log("objrs: " + JSON.stringify(objrs));
-
-                    for (var i = (objrs.length - 1); i == 0; i--) {
-                        var CodigoLote = objrs[i].Record.CodigoLote;
-                        var DataRegistro = objrs[i].Record.DataRegistro;
-                        var EtiquetaCooperativa = objrs[i].Record.EtiquetaCooperativa;
-                        var QuantidadeSacas = objrs[i].Record.QuantidadeSacas;
-                        var TipoProduto = objrs[i].Record.TipoProduto;
-                        var ListaEtiquetasFamilia = objrs[i].Record.ListaEtiquetasFamilia;
-
-                        //INSERT NA BLOCKCHAIN TABLE - LotesCooperativas
-                        var rawblocktable = JSON.stringify({
-                            "codigolote": CodigoLote,
-                            "dataregistro": DataRegistro,
-                            "etiquetacooperativa": EtiquetaCooperativa,
-                            "quantidadesacas": parseInt(QuantidadeSacas, 10),
-                            "tipoproduto": TipoProduto,
-                            "listaetiquetasfamilia": ListaEtiquetasFamilia
-                        });
-
-                        var requestOptions_blocktable = {
-                            method: 'POST',
-                            headers: myHeaders,
-                            body: rawblocktable,
-                            redirect: 'follow'
-                        };
-
-                        fetch(endpoint_lotescooperativas, requestOptions_blocktable)
-                            .then(response => response.text())
-                            .then(result => console.log(result))
-                            .catch(error => console.log('error', error));
-
-
-
-                        //console.log("2");
-                        var listaEtiquetasFamiliaArr = [];
-                        if (ListaEtiquetasFamilia.indexOf(',') != -1) {
-                            listaEtiquetasFamiliaArr = ListaEtiquetasFamilia.split(',');
-                        } else {
-                            listaEtiquetasFamiliaArr[0] = ListaEtiquetasFamilia;
-                        }
-                        if (listaEtiquetasFamiliaArr.length > 1) {
-                            for (var i = 0; i < listaEtiquetasFamiliaArr.length; i++) {
-                                //PASSAR ETIQUETA POR ETIQUETA DA LISTA - PEGANDO OS DADOS
-                                getFamilias(listaEtiquetasFamiliaArr, i);
-
-                            }
-                        } else {
-                            getFamilias(listaEtiquetasFamiliaArr, 0);
-                        }
-
-                    }
-
-
-                }).catch(error => console.log('error', error));
-
-            //}
-
-        }).catch(error => console.log('error', error));
-                      
-    }).catch(error => console.log('error', error));
-
-
-    // textStatus.innerHTML = "Sucesso.";
-    // textStatus.style.color = "#9ACD32"
-
-
-
-}
-
 function esperar(timeout) {
     return new Promise(resolve => {
         setTimeout(resolve, timeout);
     });
-}
-
-function getFamilias(listaEtiquetasFamiliaArr, i) {
-    //PASSAR ETIQUETA POR ETIQUETA DA LISTA - PEGANDO OS DADOS
-    var raw = JSON.stringify({
-        "channel": channel,
-        "chaincode": chaincodename,
-        "chaincodeVer": chaincodeVer,
-        "method": "queryEvent",
-        "args": ["{\"selector\":{\"EtiquetaFamilia\":\"" + listaEtiquetasFamiliaArr[i] + "\"}}"]
-    });
-
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-    };
-
-
-    fetch(url + "/bcsgw/rest/v1/transaction/query", requestOptions)
-        .then(response => response.text())
-        .then(result => {
-            var rs = JSON.parse(result.toString());
-            var objrs = rs.result.payload;
-            console.log("objrs: " + JSON.stringify(objrs));
-
-            for (var i = (objrs.length - 1); i >= 0; i--) {
-                var EtiquetaFamilia = objrs[i].Record.EtiquetaFamilia;
-                var Familia = objrs[i].Record.Familia;
-                var DataRegistro = objrs[i].Record.DataRegistro;
-                var PesoSaca = objrs[i].Record.PesoSaca;
-                var TipoProduto = objrs[i].Record.TipoProduto;
-                var CodigoCooperativa = objrs[i].Record.CodigoCooperativa;
-
-
-                // var listaetapa1 = document.getElementById("listaetapa1");
-
-                // var localchildlist = document.createElement('ul');
-                // var imgitem = document.createElement('img');
-                // var localitem1 = document.createElement('li');
-                // var localitem2 = document.createElement('li');
-                // var localitem3 = document.createElement('li');
-                // var localitem4 = document.createElement('li');
-                // var localitem5 = document.createElement('li');
-                // var localitem6 = document.createElement('li');
-
-                // imgitem.src = "http://www.r13a.com/familia-s-" + Familia + ".jpg";
-                // imgitem.style.width = "100px";
-                // imgitem.style.height = "100px";
-
-                // localitem1.innerHTML = "Familia: " + Familia;
-                // localitem2.innerHTML = "Etiqueta Familia: " + EtiquetaFamilia;
-                // localitem3.innerHTML = "Data Registro: " + DataRegistro;
-                // localitem4.innerHTML = "Peso Saca: " + PesoSaca;
-                // localitem5.innerHTML = "Tipo Produto: " + TipoProduto;
-                // localitem6.innerHTML = "CodigoCooperativa: " + CodigoCooperativa;
-
-                // var breakline = document.createElement('br');
-
-                // localchildlist.appendChild(imgitem);
-                // localchildlist.appendChild(localitem1);
-                // localchildlist.appendChild(localitem2);
-                // localchildlist.appendChild(localitem3);
-                // localchildlist.appendChild(localitem4);
-                // localchildlist.appendChild(localitem5);
-                // localchildlist.appendChild(localitem6);
-
-                // listaetapa1.appendChild(breakline);
-                // listaetapa1.appendChild(localchildlist);
-
-                //INSERT NA BLOCKCHAIN TABLE - Sacas
-                var rawblocktable = JSON.stringify({
-                    "etiquetafamilia": EtiquetaFamilia,
-                    "familia": Familia,
-                    "dataregistro": DataRegistro,
-                    "pesosaca": PesoSaca,
-                    "tipoproduto": TipoProduto,
-                    "codigocooperativa": CodigoCooperativa
-                });
-
-                var requestOptions_blocktable = {
-                    method: 'POST',
-                    headers: myHeaders,
-                    body: rawblocktable,
-                    redirect: 'follow'
-                };
-
-                fetch(endpoint_sacas, requestOptions_blocktable)
-                    .then(response => response.text())
-                    .then(result => console.log(result))
-                    .catch(error => console.log('error', error));
-
-
-            }
-
-        })
-        .catch(error => console.log('error', error));
 }
 
 function getFamiliasQR(listaEtiquetasFamiliaArr, i) {
@@ -772,19 +343,19 @@ function getFamiliasQR(listaEtiquetasFamiliaArr, i) {
 }
 
 
-window.buscarQR = async function buscarQR(loteNatura) {
+window.buscarQR = async function buscarQR(loteIndustriaX) {
 
-    var codigolotenatura = loteNatura;
-    console.log(codigolotenatura);
+    var codigoloteIndustriaX = loteIndustriaX;
+    console.log(codigoloteIndustriaX);
 
-    //BUSCAR PELO CODIGO LOTE NATURA
+    //BUSCAR PELO CODIGO LOTE IndustriaX
     var raw = "";
     raw = JSON.stringify({
         "channel": channel,
         "chaincode": chaincodename,
         "chaincodeVer": chaincodeVer,
         "method": "queryEvent",
-        "args": ["{\"selector\":{\"CodigoLoteNatura\":\"" + codigolotenatura + "\"}}"]
+        "args": ["{\"selector\":{\"CodigoLoteIndustriaX\":\"" + codigoloteIndustriaX + "\"}}"]
     });
 
     //"args": ["{\"selector\":{\"Teste\":\"" + teste + "\",\"Destino\":\"" + dest + "\"}}"]
@@ -816,7 +387,7 @@ window.buscarQR = async function buscarQR(loteNatura) {
             console.log("objrs: " + JSON.stringify(objrs[0].Record));
             var j = 0;
             //for (var i = (objrs.length-1); i >= (objrs.length-2) ; i--) {
-            var CodigoLoteNatura = objrs[j].Record.CodigoLoteNatura;
+            var CodigoLoteIndustriaX = objrs[j].Record.CodigoLoteIndustriaX;
             var DataRegistro = objrs[j].Record.DataRegistro;
             var Quantidade = objrs[j].Record.Quantidade;
             var TipoProduto = objrs[j].Record.TipoProduto;
@@ -831,7 +402,7 @@ window.buscarQR = async function buscarQR(loteNatura) {
             var item4 = document.createElement('li');
             var item5 = document.createElement('li');
 
-            item1.innerHTML = "Codigo Lote - Natura: " + CodigoLoteNatura;
+            item1.innerHTML = "Codigo Lote - IndustriaX: " + CodigoLoteIndustriaX;
             item2.innerHTML = "Data Registro: " + DataRegistro;
             item3.innerHTML = "Quantidade: " + Quantidade;
             item4.innerHTML = "Tipo Produto: " + TipoProduto;
@@ -845,7 +416,7 @@ window.buscarQR = async function buscarQR(loteNatura) {
             listaetapa4.appendChild(childlist);
 
 
-            //BUSCAR PELO CODIGO LOTE PROCESSAMENTO - LotesNatura
+            //BUSCAR PELO CODIGO LOTE PROCESSAMENTO - LotesIndustriaX
             var raw = JSON.stringify({
                 "channel": channel,
                 "chaincode": chaincodename,

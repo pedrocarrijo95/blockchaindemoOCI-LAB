@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Blockchain Natura - Demo</title>
+  <title>Blockchain IndustriaX - Demo</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
@@ -14,15 +14,14 @@
 <script>
 
 
-//let url = new URL('http://www.test.com/t.html?a=1&b=3&c=m2-m3-m4-m5');
 let params = (new URL(document.location)).searchParams;
-console.log(params.get("loteNatura"));  // outputs "m2-m3-m4-m5"
+console.log(params.get("loteIndustriaX"));
 
-var lotenatura = params.get("loteNatura").toString();
+var loteIndustriaX = params.get("loteIndustriaX").toString();
 
 window.onload = function(){
-  if(lotenatura != null){
-    window.buscarQR(lotenatura);
+  if(loteIndustriaX != null){
+    window.buscarQR(loteIndustriaX);
   }
 };
 
@@ -36,8 +35,8 @@ window.onload = function(){
   <div class="modal-bodies">
     <div class="modal-body modal-body-step-1 is-showing">
       <div class="title">Passo 4 - Consulta QRCode</div>
-      <div class="description">Consultar histórico do "Lote Natura"</div>
-      <!-- <input id="edtCodigoNaturaBusca" type="text" name="name" placeholder="Codigo do lote Natura"> -->
+      <div class="description">Consultar histórico do "Lote IndustriaX"</div>
+      <!-- <input id="edtCodigoIndustriaXBusca" type="text" name="name" placeholder="Codigo do lote IndustriaX"> -->
         <div class="text-center fade-in">
           <!-- <div class="btn" type="button" onclick="buscar()">Consultar histórico !</div> -->
           <br>
@@ -50,7 +49,7 @@ window.onload = function(){
       <h4>ETAPA 2 - COOPERATIVAS -> PROCESSADORA</h4>
       <ul id="listaetapa2"></ul>  
       <br>
-      <h4>ETAPA 3 - PROCESSADORA -> NATURA</h4>
+      <h4>ETAPA 3 - PROCESSADORA -> IndustriaX</h4>
       <ul id="listaetapa3"></ul>  
       <br>
       <h4>ETAPA 4 - INDUSTRIALIZACÃO</h4>
