@@ -160,7 +160,7 @@ window.cadastrarProcessado = async function cadastrarProcessado() {
             //console.log(JSON.stringify(resp));
             if (resp.returnCode == "Success") {
                 var myHeadersOIC = new Headers();
-                myHeadersOIC.append("Authorization", "Basic bWF1bWlldHRvQGdtYWlsLmNvbTpPcmFjbGVAQDIwMjI=");
+                myHeadersOIC.append("Authorization", "sua auth");
                 myHeadersOIC.append("Content-Type", "application/json");
                 
                         
