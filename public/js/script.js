@@ -15,7 +15,7 @@ window.cadastrarSacas = function cadastrarSacas() {
     textStatus.style.color = "#FFFF00";
     console.log("cadastrar");
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Basic cGVkcm8uYmxvY2tjaGFpbjpCbG9jayYxMjQ0Mjk=");
+    myHeaders.append("Authorization", "sua auth");
     myHeaders.append("Content-Type", "application/json");
 
 
@@ -69,7 +69,7 @@ window.cadastrarProcessar = function cadastrarProcessar() {
     textStatus.style.color = "#FFFF00";
     console.log("cadastrar");
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Basic cGVkcm8uYmxvY2tjaGFpbjpCbG9jayYxMjQ0Mjk=");
+    myHeaders.append("Authorization", "sua auth");
     myHeaders.append("Content-Type", "application/json");
 
 
@@ -124,7 +124,7 @@ window.cadastrarProcessado = async function cadastrarProcessado() {
     textStatus.style.color = "#FFFF00";
     console.log("cadastrar");
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Basic cGVkcm8uYmxvY2tjaGFpbjpCbG9jayYxMjQ0Mjk=");
+    myHeaders.append("Authorization", "sua auth");
     myHeaders.append("Content-Type", "application/json");
 
 
@@ -204,7 +204,7 @@ window.cadastrarIndustriaX = function cadastrarIndustriaX() {
     textStatus.style.color = "#FFFF00";
     console.log("cadastrar");
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Basic cGVkcm8uYmxvY2tjaGFpbjpCbG9jayYxMjQ0Mjk=");
+    myHeaders.append("Authorization", "sua auth");
     myHeaders.append("Content-Type", "application/json");
 
 
@@ -252,7 +252,7 @@ window.cadastrarIndustriaX = function cadastrarIndustriaX() {
 }
 
 var myHeaders = new Headers();
-myHeaders.append("Authorization", "Basic cGVkcm8uYmxvY2tjaGFpbjpCbG9jayYxMjQ0Mjk=");
+myHeaders.append("Authorization", "sua auth");
 myHeaders.append("Content-Type", "application/json");
 
 
